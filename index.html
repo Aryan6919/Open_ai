@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const apiUrl="https://api.openai.com/v1/chat/completions"
+    const apiKey="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"
+
+    async function postData()
+    {
+        const message=document.getElementById('message').value
+        console.log(message)
+        fetch(apiUrl,{
+            method:"POST",
+            // mode:"no-cors",
+            headers:{
+                // "Access-Control-Allow-Origin":"*",
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${apiKey}`,
+                
+
+            },
+            body:JSON.stringify({
+                "model":"gpt-3.5-turbo",
+                "messages":[
+                    {
+                        "role":"user",
+                        "content":`write ajavascript code for the following${message}`
+                    }
+                ]
+            }
+            
+        )}).then(response=>response.json())
+        .then(data=>
+        {
+            console.log(data)
+            console.log("done")
+            const responseText=data.choices[0].message.content.trim()
+            const card=document.createElement('pre')
+            card.innerHTML=responseText
+            document.getElementById('chat-area').appendChild(card)
+        })
+
+    }
+</script>
+<style>
+    .dark
+    {
+        background-color: #414141;
+        color:white
+    }
+    .card{
+        background-color: black;
+        color: white;
+        margin:10px;
+        padding:10px;
+        border:1px solid white;
+        border-radius:4px
+    }
+    .input
+    
+    {
+        margin:0 auto;
+        margin-top:30px;
+        height:200px;
+        width:80%;
+        display:block;
+    }
+    button{
+        background-color: aqua;
+        border-radius: 6px;
+        font-size: x-large;
+        margin-top: 24px;
+        /* align-self: center; */
+    
+        margin-left: 72px;
+
+    }
+    #mes
+    {
+        padding-left: 80px;
+        align-content: center;
+    }
+</style>
+<body class="dark">
+    <h1>
+        Get any leetcode solution in Javascript
+        </h1>
+        <form>
+            <label for="message" id="mes">ENTER YOUR INPUT STATEMENT</label>
+            <textarea id="message"  class="input" cols="30" rows="10"></textarea>
+            <button type="button" onclick="postData()">Click me</button>
+              <div id="chat-area"></div> 
+        </form>
+    
+</body>
+</html>
