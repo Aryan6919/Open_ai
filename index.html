@@ -8,7 +8,7 @@
 </head>
 <script>
     const apiUrl="https://api.openai.com/v1/chat/completions"
-    const apiKey="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"
+    const apiKey=""
 
     async function postData()
     {
@@ -16,9 +16,9 @@
         console.log(message)
         fetch(apiUrl,{
             method:"POST",
-             mode:"no-cors",
+//              mode:"no-cors",
             headers:{
-                 "Access-Control-Allow-Origin":"*",
+//                  "Access-Control-Allow-Origin":"*",
                 "Content-Type":"application/json",
                 "Authorization":`Bearer ${apiKey}`,
                 
